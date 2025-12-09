@@ -8,8 +8,8 @@ Sample data provided in `data/m.allgenes.logcpm.rds` (subset of all cells and ge
 
 ## Usage
 
+Open `program_analysis.Rmd` and run interactively or render:
+
 ```r
 rmarkdown::render("program_analysis.Rmd")
 ```
-
-To execute the code (not just display), set `eval = TRUE` in the setup chunk.
