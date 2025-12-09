@@ -13,3 +13,5 @@ Open `program_analysis.Rmd` and run interactively or render:
 ```r
 rmarkdown::render("program_analysis.Rmd")
 ```
+
+To execute code, set `eval = TRUE` in the setup chunk.
