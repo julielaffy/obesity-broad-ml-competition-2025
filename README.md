@@ -5,6 +5,13 @@
 
 Program analysis pipeline to calculate proportions of adipocyte cell programs in Perturb-seq data.
 
+## Installation
+
+```r
+install.packages(c("tidyverse", "Matrix", "reshape2"))
+BiocManager::install("jlaffy/scalop")
+```
+
 ## Data
 
 Sample data provided in `data/m.allgenes.logcpm.rds` (subset of all cells and genes).
