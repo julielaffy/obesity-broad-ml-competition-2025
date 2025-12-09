@@ -1,6 +1,5 @@
-# Ignore all data files except the input matrix
-data/*
-!data/m.allgenes.logcpm.rds
+# Ignore all data files
+data/
 
 # R artifacts
 .Rhistory
