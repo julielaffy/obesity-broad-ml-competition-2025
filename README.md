@@ -1,10 +1,10 @@
-# Obesity Broad ML Competition 2025
+# Obesity Broad Machine Learning Competition 2025
 
-Program analysis to identify and quantify adipocyte cell programs in Perturb-seq data of differentiating adipocytes.
+Program analysis to identify and quantify adipocyte cell programs in Perturb-seq data.
 
 ## Data
 
-Sample data provided in `data/m.allgenes.logcpm.rds` (subset of all cells and genes for faster execution).
+Sample data provided in `data/m.allgenes.logcpm.rds` (subset of all cells and genes).
 
 ## Usage
 
