@@ -1,6 +1,8 @@
 # Obesity Broad Machine Learning Competition 2025
 
 ![Downloads](https://img.shields.io/github/downloads/julielaffy/obesity-broad-ml-competition-2025/total)
+![R](https://img.shields.io/badge/R-%3E%3D4.0-blue?logo=r)
+![License](https://img.shields.io/github/license/julielaffy/obesity-broad-ml-competition-2025)
 
 Program analysis pipeline to calculate proportions of adipocyte cell programs in Perturb-seq data.
 
