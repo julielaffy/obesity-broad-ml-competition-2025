@@ -1,6 +1,6 @@
 # Obesity Broad Machine Learning Competition 2025
 
-Program analysis to identify and quantify adipocyte cell programs in Perturb-seq data.
+Program analysis pipeline to calculate proportions of adipocyte cell programs in Perturb-seq data.
 
 ## Data
 
