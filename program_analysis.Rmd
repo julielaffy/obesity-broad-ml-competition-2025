@@ -1,0 +1,285 @@
+---
+title: "Obesity Machine Learning Competition"
+subtitle: "Program Analysis"
+author: "Julie Laffy<br><span class='affiliation'>Eric and Wendy Schmidt Center Fellow, Broad Institute of MIT and Harvard</span>"
+output:
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+    toc_depth: 3
+---
+
+<style>
+.subtitle {
+  font-size: 2.5em;
+  font-weight: bold;
+}
+.affiliation {
+  font-size: 0.85em;
+  color: #666;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE, message = FALSE, warning = FALSE)
+```
+
+# Setup
+
+```{r}
+# Install and load required packages for this analysis
+
+# Set CRAN mirror (needed for non-interactive/vanilla mode)
+options(repos = c(CRAN = "https://cloud.r-project.org"))
+
+# CRAN packages
+cran_packages <- c("Matrix", "dplyr", "tidyr", "reshape2")
+
+# Install missing CRAN packages
+install.packages(setdiff(cran_packages, rownames(installed.packages())))
+
+# BiocManager for Bioconductor packages (scalop depends on these)
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")
+}
+
+# Install scalop
+if (!"scalop" %in% rownames(installed.packages())) {
+  BiocManager::install("jlaffy/scalop")
+}
+
+# Load all
+invisible(lapply(c(cran_packages, "scalop"), library, character.only = TRUE))
+```
+
+# Part 1: All Cells
+
+## 1.1 Preprocess
+
+```{r}
+library(Matrix)
+library(scalop)
+
+full_matrix = "data/m.allgenes.logcpm.rds"
+proc_matrix = "data/m.logcpm.rds" 
+gene_cutoff = 3
+
+# read in expression matrix
+# already in form log2(CPM/10 + 1)
+m <- readRDS(full_matrix)
+m <- as.matrix(m)
+
+# calculate average gene expression
+avg <- scalop::aggr_gene_expr(m, isBulk=F)
+
+# filter genes that do not pass minimum gene expression cutoff
+m2 <- m[avg >= gene_cutoff, ]
+
+# save filtered matrix
+saveRDS(m2, proc_matrix)
+```
+
+## 1.2 Score Adipo/Preadipo
+
+```{r}
+proc_matrix = "data/m.logcpm.rds" 
+gene_sigs = "sigs/adipo_preadipo_sigs.rds"
+frac_genes_retained = 0.5
+n_genes_retained = 10
+score_results = "data/permuted_scores.adipo_preadipo_sigs.rds"
+
+# Read in processed expression matrix
+m = readRDS(proc_matrix)
+
+# Read in gene signatures to score cells by
+# there are 2 adipocyte signatures: "adipomap.Ad" and "yi.AD"
+# and 2 pre-adipocyte (progenitor) signatures: "adipomap.ASPC" and "yi.ASPC"
+sigs = readRDS(gene_sigs)
+
+# Filter out signatures whose genes are poorly represented in {proc_matrix}
+# A signature is kept if at least 10 genes and 50% of the signature exist in {proc_matrix}
+# {frac_genes_retained} and {n_genes_retained}
+sigs_filt = sigs[sapply(sigs, function(x) sum(x %in% rownames(m)) >= n_genes_retained)]
+
+# Calculate single-cell expression scores for each signature and FDRs
+invisible(capture.output(
+  scores_permuted <- scalop::permuteSigScores(m, sigs_filt, conserved.genes=frac_genes_retained)
+))
+
+# Save results
+saveRDS(scores_permuted, score_results)
+```
+
+## 1.3 Classify Adipo/Preadipo/Other
+
+```{r}
+score_results = "data/permuted_scores.adipo_preadipo_sigs.rds"
+fdr_cutoff = 0.01 
+diff_cutoff = 0.3
+
+# Load scores
+scores = readRDS(score_results)
+
+# Prepare data
+scores_wide = scores %>%
+  dplyr::select(id, sig, score, fdr) %>%
+  tidyr::pivot_wider(names_from = sig, values_from = c(score, fdr)) %>%
+  dplyr::mutate(
+    max_adipo = pmax(score_adipomap.Ad, score_yi.AD),
+    max_preadipo = pmax(score_adipomap.ASPC, score_yi.ASPC),
+    score_diff = max_adipo - max_preadipo,
+    max_overall = pmax(score_adipomap.Ad,
+                       score_yi.AD, 
+                       score_adipomap.ASPC, 
+                       score_yi.ASPC)
+  )
+
+# Classify cells
+# Adipo logic: 
+# - score_diff > {diff_cutoff} (adipo score higher than preadipo score)
+# - both ASPC (preadipo) signatures must be non-significant (fdr >= {fdr_cutoff})
+# - at least one adipocyte signature must be significant ({fdr_cutoff})
+# Preadipo logic: 
+# - score_diff < -{diff_cutoff} (preadipo score higher than adipo score)
+# - both adipo signatures must be non-significant (fdr >= {fdr_cutoff})
+# - at least one ASPC (preadipocyte) signature must be significant ({fdr_cutoff})
+# Other: everything else (ambiguous, dual-identity, neither) 
+
+scores_wide = scores_wide %>%
+  dplyr::mutate(
+    compartment = dplyr::case_when(
+      score_diff > diff_cutoff & 
+        (fdr_adipomap.ASPC >= fdr_cutoff & fdr_yi.ASPC >= fdr_cutoff) &
+        (fdr_adipomap.Ad < fdr_cutoff | fdr_yi.AD < fdr_cutoff) ~ "Adipo",
+      score_diff < -1 * diff_cutoff & 
+        (fdr_adipomap.Ad >= fdr_cutoff & fdr_yi.AD >= fdr_cutoff) &
+        (fdr_adipomap.ASPC < fdr_cutoff | fdr_yi.ASPC < fdr_cutoff) ~ "Preadipo",
+      TRUE ~ "Other"
+    )
+  )				
+
+# Extract cell IDs for each compartment
+adipo_cells = scores_wide$id[scores_wide$compartment == "Adipo"]
+preadipo_cells = scores_wide$id[scores_wide$compartment == "Preadipo"]
+other_cells = scores_wide$id[scores_wide$compartment == "Other"]
+
+# Save cell ID lists
+saveRDS(adipo_cells, 'data/cells.adipo.rds')
+saveRDS(preadipo_cells, 'data/cells.preadipo.rds')
+saveRDS(other_cells, 'data/cells.other.rds')
+```
+
+# Part 2: Adipo Cells
+
+## 2.1 Preprocess
+
+```{r}
+adipo_cells = "data/cells.adipo.rds"
+full_matrix = "data/m.allgenes.logcpm.rds"
+proc_matrix = "data/m.adipo.logcpm.rds"
+gene_cutoff = 3
+
+# read expression matrix and cells classified as Adipo
+cells = readRDS(adipo_cells)
+m = readRDS(full_matrix)
+m = as.matrix(m)
+
+# filter to keep only Adipo cells 
+m_adipo = m[, cells]
+
+# calculate average gene expression
+avg = scalop::aggr_gene_expr(m_adipo, isBulk=F)
+
+# filter genes that do not pass minimum gene expression cutoff
+m2 = m_adipo[avg >= gene_cutoff, ]
+
+# save filtered matrix
+saveRDS(m2, proc_matrix)
+```
+
+## 2.2 Score Lipogenic
+
+```{r}
+proc_matrix = "data/m.adipo.logcpm.rds" 
+gene_sigs = "sigs/lipogenic_sigs.rds"
+frac_genes_retained = 0.5
+n_genes_retained = 10
+score_results = "data/permuted_scores.lipogenic_sigs.rds"
+
+# Read in processed expression matrix
+m = readRDS(proc_matrix)
+
+# Read in gene signatures to score cells by
+# These are a collection of lipogenic signatures
+sigs = readRDS(gene_sigs)
+
+# Filter out signatures whose genes are poorly represented in {proc_matrix}
+# A signature is kept if at least 10 genes and 50% of the signature exist in {proc_matrix}
+# {frac_genes_retained} and {n_genes_retained}
+sigs_filt = sigs[sapply(sigs, function(x) sum(x %in% rownames(m)) >= n_genes_retained)]
+
+# Calculate single-cell expression scores for each signature and FDRs
+invisible(capture.output(
+  scores_permuted <- scalop::permuteSigScores(m, sigs_filt, conserved.genes=frac_genes_retained)
+))
+
+# Save results
+saveRDS(scores_permuted, score_results)
+```
+
+## 2.3 Classify Lipogenic
+
+```{r}
+score_results = "data/permuted_scores.lipogenic_sigs.rds"
+fdr_cutoff = 0.01
+score_cutoff = 0.3
+n_sigs = 2
+
+# Load scores
+scores = readRDS(score_results)
+
+# Prepare data
+scores_wide = scores %>%
+  dplyr::select(id, sig, score, fdr) %>%
+  tidyr::pivot_wider(names_from = sig, values_from = c(score, fdr))
+
+# Count how many signatures pass criteria per cell
+n_pass = rowSums(sapply(names(scores_wide)[grepl("^score_", names(scores_wide))], function(score_col) {
+  fdr_col = sub("^score_", "fdr_", score_col)
+  scores_wide[[score_col]] > score_cutoff & scores_wide[[fdr_col]] < fdr_cutoff
+}))
+
+# Filter for cells that have at least {n_sigs} lipogenic signatures passing cutoffs
+lipogenic_cells = scores_wide$id[n_pass >= n_sigs]
+
+# Save cell ID list
+saveRDS(lipogenic_cells, "data/cells.lipogenic.rds")
+```
+
+# Part 3: Proportions
+
+```{r}
+# get cell assignment file paths
+cell_files = list.files("data", full.names = T, pattern = "^cells")
+
+# read in cell assignments
+cell_list = sapply(cell_files, readRDS, simplify=F)
+
+# fix names and reorder groups
+names(cell_list) = scalop::substri(basename(names(cell_list)), pos=2)
+ord = c('adipo', 'preadipo', 'other', 'lipogenic')
+cell_list = cell_list[ord]
+
+# get cell proportions
+n_cells = lengths(cell_list)
+frac_cells = n_cells / sum(n_cells[-4])
+frac_cells
+```
+
+*Expected output for sample data:*
+
+```
+##     adipo  preadipo     other lipogenic 
+##     0.291     0.384     0.325     0.084 
+```

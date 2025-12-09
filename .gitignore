@@ -1,0 +1,20 @@
+# Ignore all data files except the input matrix
+data/*
+!data/m.allgenes.logcpm.rds
+
+# R artifacts
+.Rhistory
+.RData
+.Rproj.user/
+
+# Knit intermediates
+*.knit.md
+*.utf8.md
+
+# Swap files
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+
