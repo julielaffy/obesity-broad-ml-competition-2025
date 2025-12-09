@@ -1,6 +1,6 @@
 # Obesity Broad ML Competition 2025
 
-Identify and quantify adipocyte cell programs in Perturb-seq data of differentiating adipocytes.
+Program analysis to identify and quantify adipocyte cell programs in Perturb-seq data of differentiating adipocytes.
 
 ## Data
 
