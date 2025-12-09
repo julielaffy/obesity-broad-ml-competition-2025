@@ -6,7 +6,7 @@
 
 Program analysis pipeline to calculate proportions of adipocyte cell programs in Perturb-seq data.
 
-📄 [View rendered analysis](https://htmlpreview.github.io/?https://github.com/julielaffy/obesity-broad-ml-competition-2025/blob/master/program_analysis.html)
+[View program_analysis.html](https://julielaffy.github.io/obesity-broad-ml-competition-2025/program_analysis.html)
 
 ## Data
 
