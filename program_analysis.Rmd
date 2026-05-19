@@ -1,29 +1,216 @@
 ---
-title: "Obesity Machine Learning Competition"
-subtitle: "Program Analysis"
-author: "Julie Laffy<br><span class='affiliation'>Eric and Wendy Schmidt Center Fellow, Broad Institute of MIT and Harvard</span>"
+title: "Program Analysis"
+subtitle: "<a href='https://hub.crunchdao.com/competitions/broad-obesity-1' target='_blank'>Obesity Machine Learning Competition</a>"
+author: "Julie Laffy<br><span class='affiliation'>Postdoctoral fellow of the Eric and Wendy Schmidt Center<br>Broad Institute of MIT and Harvard</span>"
+date: "May 2026"
 output:
   html_document:
     toc: true
     toc_float:
       collapsed: false
     toc_depth: 3
+    theme: cosmo
+    highlight: tango
+    df_print: paged
 ---
 
 <style>
-.subtitle {
-  font-size: 2.5em;
-  font-weight: bold;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #2c3e50;
+}
+.main-container {
+  max-width: 100%;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+@media (min-width: 992px) {
+  .main-container > .row > div.col-md-9,
+  .main-container > .row > div.col-xs-12.col-sm-8.col-md-9 {
+    max-width: 1100px;
+  }
+}
+h1.title {
+  font-size: 2.6em;
+  font-weight: 700;
+  color: #1f3a5f;
+  margin-top: 0.5em;
+  margin-bottom: 0.1em;
+}
+.subtitle, h3.subtitle {
+  font-size: 1.55em;
+  font-weight: 500;
+  color: #2d5a8c;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  padding-top: 0;
+  border-bottom: none;
+}
+.subtitle a, h3.subtitle a {
+  color: #2d5a8c;
+  text-decoration: none;
+  outline: none;
+}
+.subtitle a:focus:not(:focus-visible),
+h3.subtitle a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+.subtitle a::after, h3.subtitle a::after {
+  content: " \2197";
+  font-size: 0.6em;
+  font-weight: 700;
+  vertical-align: 0.25em;
+  margin-left: 3px;
+  opacity: 0.75;
+}
+.subtitle a:hover::after, h3.subtitle a:hover::after {
+  opacity: 1;
+}
+.subtitle a:hover, h3.subtitle a:hover {
+  color: #1a4480;
+}
+h3.subtitle::after {
+  content: '';
+  display: block;
+  width: 70px;
+  border-bottom: 2px solid #cbd5e0;
+  margin-top: 0.6em;
+}
+h1 {
+  font-size: 1.9em;
+}
+h4.author {
+  color: #4a5568;
+  font-weight: 400;
+  font-size: 1em;
+  margin-top: 0.4em;
+  margin-bottom: 0.2em;
+}
+h4.date {
+  color: #718096;
+  font-weight: 400;
+  font-size: 0.9em;
+  margin-top: 0;
+  margin-bottom: 1.4em;
 }
 .affiliation {
   font-size: 0.85em;
-  color: #666;
+  color: #718096;
+}
+h1, h2, h3 {
+  color: #1f3a5f;
+  font-weight: 600;
+  padding-top: 0.25em;
+}
+h1 {
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.3em;
+  margin-top: 1.6em;
+}
+h1:first-of-type {
+  margin-top: 0.6em;
+}
+h2 {
+  margin-top: 1.4em;
+}
+h3 {
+  color: #2d5a8c;
+}
+a {
+  color: #2b6cb0;
+  text-decoration: none;
+}
+a:hover {
+  color: #1a4480;
+  text-decoration: underline;
+}
+code {
+  background-color: #f4f6f8;
+  color: #c7254e;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+pre {
+  background-color: #f8f9fb;
+  border: 1px solid #e4e8ed;
+  border-radius: 5px;
+  padding: 12px 14px;
+  font-size: 0.88em;
+  line-height: 1.5;
+}
+pre code {
+  background-color: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+blockquote {
+  border-left: 4px solid #cbd5e0;
+  background-color: #f7fafc;
+  color: #4a5568;
+  padding: 0.4em 1em;
+  margin: 1em 0;
+}
+em {
+  color: #4a5568;
+}
+.tocify {
+  border-radius: 5px;
+  border: 1px solid #e2e8f0;
+  width: 290px;
+  font-size: 0.92em;
+}
+@media (max-width: 991px) {
+  .tocify { width: auto; }
+}
+@media (min-width: 992px) {
+  div.col-md-3 { padding-left: 0; }
+}
+.tocify .list-group-item {
+  border-color: #edf2f7;
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.35;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+.tocify .tocify-subheader > li > a {
+  white-space: normal;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.tocify .tocify-header .tocify-item.active,
+.tocify .tocify-subheader .tocify-item.active {
+  background-color: #2b6cb0;
+  color: white;
+  border-left-color: #1a4480;
+}
+.tocify .list-group-item:hover {
+  background-color: #f7fafc;
+}
+hr {
+  border-top: 1px solid #e2e8f0;
 }
 </style>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(eval = FALSE, message = FALSE, warning = FALSE)
 ```
+
+# Overview
+
+Program analysis methodology used in the Obesity ML Competition.
+
+- **Parts 1–3** — cell-program classification (pre-adipocyte / adipocyte /
+  lipogenic / other) and proportions. Methodology used for
+  [Crunch 1](https://hub.crunchdao.com/competitions/broad-obesity-1) and
+  [Crunch 2](https://hub.crunchdao.com/competitions/broad-obesity-2).
+- **Part 4** — thermogenic signature scoring. Methodology used for
+  [Crunch 3](https://hub.crunchdao.com/competitions/broad-obesity-3).
 
 # Setup
 
@@ -280,6 +467,145 @@ frac_cells
 *Expected output for sample data:*
 
 ```
-##     adipo  preadipo     other lipogenic 
-##     0.291     0.384     0.325     0.084 
+##     adipo  preadipo     other lipogenic
+##     0.291     0.384     0.325     0.084
 ```
+
+# Part 4: Thermogenic Scoring
+
+The scoring pipeline below is what produced the reference
+`*_ThermoScores_cell.csv` and `*_ThermoScores_perturbation.csv` files released
+to participants in
+[Crunch 3](https://hub.crunchdao.com/competitions/broad-obesity-3). Twelve
+signatures are scored, taken from `thermogenic_signatures.csv`:
+
+```
+nonucp1.all
+REACTOME_AMPK_inhibits_chREBP_R-HSA-163680
+REACTOME_Integration_of_energy_metabolism_R-HSA-163685
+REACTOME_Mitochondrial_biogenesis_R-HSA-1592230
+emont.hAd6
+lit.thermogenic
+C2.WP_THERMOGENESIS
+C5.GOBP_ADAPTIVE_THERMOGENESIS
+C5.GOBP_BROWN_FAT_CELL_DIFFERENTIATION
+C5.GOBP_NEGATIVE_REGULATION_OF_COLD_INDUCED_THERMOGENESIS
+C5.GOBP_POSITIVE_REGULATION_OF_COLD_INDUCED_THERMOGENESIS
+yi.Thermogenesis_Village
+```
+
+## 4.1 Score Thermogenic Signatures
+
+```{r}
+proc_matrix = "data/m.adipo.logcpm.rds"
+gene_sigs = "sigs/thermo_sigs.rds"
+n_genes_retained = 2
+score_results = "data/permuted_scores.thermo_sigs.rds"
+
+# Read in processed adipocyte expression matrix
+m = readRDS(proc_matrix)
+
+# Read in the 12 thermogenic gene signatures
+sigs = readRDS(gene_sigs)
+
+# Trim each signature to genes present in the matrix
+sigs_present = sapply(sigs, function(x) x[x %in% rownames(m)], simplify = FALSE)
+
+# Keep only sigs with at least {n_genes_retained} of their genes in the matrix
+sigs_to_score = sigs_present[lengths(sigs_present) >= n_genes_retained]
+
+# Score each signature against each cell (raw score + permutation-based FDR)
+scores = permuteSigScores(m, sigs_to_score, conserved.genes = 0)
+
+# Annotate each row with how many genes the signature contributed
+scores$n_genes_used = lengths(sigs_to_score)[as.character(scores$sig)]
+
+# Save long per-(cell, sig) table: id, sig, score, fdr, n_genes_used
+saveRDS(scores, score_results)
+```
+
+## 4.2 Z-score and Per-Perturbation Aggregation
+
+Z-score each signature across all adipocyte cells, aggregate to perturbation
+level (mean z per gene × sig), and rank perturbations by
+`agg_top3_z` (mean of the top-3 signature z-scores). Outputs in the format of
+the [released reference files](https://hub.crunchdao.com/competitions/broad-obesity-3)
+for Crunch 3: `ThermoScores_cell.csv` (one row per cell) and
+`ThermoScores_perturbation.csv` (one row per perturbation, with `agg_top3_z`
+and `rank`).
+
+```{r}
+score_results = "data/permuted_scores.thermo_sigs.rds"
+cell_out = "data/ThermoScores_cell.csv"
+perturbation_out = "data/ThermoScores_perturbation.csv"
+
+# Load per-(cell, sig) scores from script 08
+scores = readRDS(score_results)
+
+# 1. Z-score each signature across all adipocyte cells
+# z = (raw_score - mean_across_cells) / sd_across_cells
+scores = scores %>%
+  dplyr::group_by(sig) %>%
+  dplyr::mutate(z_score = (score - mean(score)) / stats::sd(score)) %>%
+  dplyr::ungroup()
+
+# 2. Derive perturbation (gene) from cell id prefix.
+#    TF150 convention only — otherwise use AnnData `.obs['gene']` / cell metadata.
+scores$gene = sub("_.*", "", as.character(scores$id))
+
+# 3. Per-cell wide table: raw score columns + z_-prefixed z-score columns
+cell_wide = scores %>%
+  dplyr::select(cell_id = id, gene, sig, score, z_score) %>%
+  tidyr::pivot_wider(names_from = sig, values_from = c(score, z_score),
+                     names_glue = "{ifelse(.value == 'score', '', 'z_')}{sig}")
+
+write.csv(cell_wide, cell_out, row.names = FALSE)
+
+# 4. Per-perturbation aggregation:
+#    - mean z-score per (gene, sig) across all cells of that perturbation
+#    - agg_top3_z = mean of the top-3 sig z-scores
+#    - rank perturbations from highest to lowest agg_top3_z
+perturb_long = scores %>%
+  dplyr::group_by(gene, sig) %>%
+  dplyr::summarise(mean_z = mean(z_score), .groups = "drop")
+
+perturb_wide = perturb_long %>%
+  tidyr::pivot_wider(names_from = sig, values_from = mean_z)
+
+agg_top3 = function(row) mean(sort(unlist(row), decreasing = TRUE)[1:3])
+
+sig_cols = setdiff(names(perturb_wide), "gene")
+perturb_wide$agg_top3_z = apply(perturb_wide[, sig_cols], 1, agg_top3)
+perturb_wide = perturb_wide %>% dplyr::arrange(dplyr::desc(agg_top3_z))
+perturb_wide$rank = seq_len(nrow(perturb_wide))
+
+write.csv(perturb_wide, perturbation_out, row.names = FALSE)
+```
+
+*Below: results from running the pipeline on the **TF150** dataset.*
+
+**`ThermoScores_cell.csv`** — first 3 of 30,975 rows, showing 2 of the
+12 raw + 12 z-scored signature columns:
+
+```
+                    cell_id  gene  emont.hAd6  z_emont.hAd6
+TRIM5_P1_AAACCATTCGCGACAT-1 TRIM5      0.6472        1.9737
+CREB1_P1_AAACCCTGTAGTAGGC-1 CREB1      0.1894        0.5775
+TRRAP_P1_AAACGAATCAATTGGT-1 TRRAP      0.0647        0.1972
+```
+
+**`ThermoScores_perturbation.csv`** — top 8 of 158 perturbations ranked by
+`agg_top3_z`, showing the first 2 of the 12 signature columns:
+
+```
+    gene  emont.hAd6  lit.thermogenic  agg_top3_z  rank
+RNASEH2C      0.5796           0.1700      0.5484     1
+ FAM136A      0.1190           0.4887      0.4885     2
+ TMEM107     -0.2030           0.3624      0.4199     3
+   EP400      0.2438           0.3996      0.3956     4
+   TRIM5      0.1003           0.1147      0.3177     5
+   CEBPG      0.0505           0.0977      0.2926     6
+   MEF2A     -0.0477           0.2802      0.2907     7
+    RBAK      0.1003           0.3238      0.2900     8
+```
+
