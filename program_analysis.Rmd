@@ -201,6 +201,12 @@ hr {
 knitr::opts_chunk$set(eval = FALSE, message = FALSE, warning = FALSE)
 ```
 
+<div style="background:#eef5fc;border:1px solid #cdd9e6;border-radius:6px;padding:10px 14px;margin-bottom:1em;font-size:0.95em;">
+<strong>R version</strong> of the notebook — also available as a
+<a href="program_analysis_py.html">Python notebook</a> using
+<a href="https://github.com/julielaffy/pyscalop">pyscalop</a>.
+</div>
+
 # Overview
 
 Program analysis methodology used in the Obesity ML Competition.
