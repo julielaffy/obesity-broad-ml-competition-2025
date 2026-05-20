@@ -590,14 +590,12 @@ write.csv(perturb_wide, perturbation_out, row.names = FALSE)
 
 *Below: results from running the pipeline on the **TF150** dataset.*
 
-**`ThermoScores_cell.csv`** — 3 sampled rows of 30,975, showing 2 of the
+**`ThermoScores_cell.csv`** — top row (of 30,975), showing 2 of the
 12 raw + 12 z-scored signature columns:
 
 ```
                     cell_id  gene  emont.hAd6  z_emont.hAd6
 PPARG_P2_TAACCTAGTGATGAGC-1 PPARG      0.0969        0.3058
- NFIB_P1_TATCCATCAAGTGGTT-1  NFIB     -0.4047       -1.2769
-   NC_P5_CCATCGCTCTGTCATC-1    NC     -0.0095       -0.0300
 ```
 
 **`ThermoScores_perturbation.csv`** — top 5 of 158 perturbations ranked by
