@@ -7510,7 +7510,7 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7e97f235">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6c681bf3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7555,7 +7555,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=50e00233">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=fee084bc">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7565,13 +7565,13 @@ lipogenic / other) and proportions. Methodology used for
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="o">%%capture</span>
 <span class="c1"># Install required packages</span>
-<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="s2">"pyscalop&gt;=0.2.0"</span> <span class="n">pandas</span> <span class="n">pyarrow</span> <span class="o">--</span><span class="n">quiet</span>
+<span class="o">%</span><span class="n">pip</span> <span class="n">install</span> <span class="s2">"pyscalop&gt;=0.3.0"</span> <span class="n">pandas</span> <span class="n">pyarrow</span> <span class="o">--</span><span class="n">quiet</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=19c7d177">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a76caff8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7588,7 +7588,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=fc0e4618">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4bfd6af5">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7598,7 +7598,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=73166639">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=44bd95bf">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7610,14 +7610,14 @@ lipogenic / other) and proportions. Methodology used for
 <span class="n">proc_matrix</span> <span class="o">=</span> <span class="s2">"data/m.logcpm.parquet"</span>
 <span class="n">gene_cutoff</span> <span class="o">=</span> <span class="mi">3</span>
 
-<span class="c1"># read in expression matrix (gene x cell, log2(CPM/10 + 1))</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">full_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"gene"</span><span class="p">)</span>
+<span class="c1"># read in expression matrix (cells x genes, log2(CPM/10 + 1))</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">full_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"cell_id"</span><span class="p">)</span>
 
 <span class="c1"># calculate average gene expression</span>
 <span class="n">avg</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">aggr_gene_expr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">is_bulk</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># filter genes that do not pass minimum gene expression cutoff</span>
-<span class="n">m2</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">avg</span> <span class="o">&gt;=</span> <span class="n">gene_cutoff</span><span class="p">]</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">avg</span> <span class="o">&gt;=</span> <span class="n">gene_cutoff</span><span class="p">]</span>
 
 <span class="c1"># save filtered matrix</span>
 <span class="n">m2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">proc_matrix</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -7627,7 +7627,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8c1c103e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7c512f9b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7637,7 +7637,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=b885e15d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=f20114a0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7651,8 +7651,8 @@ lipogenic / other) and proportions. Methodology used for
 <span class="n">n_genes_retained</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">score_results</span> <span class="o">=</span> <span class="s2">"data/permuted_scores.adipo_preadipo_sigs.parquet"</span>
 
-<span class="c1"># Read in processed expression matrix</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">proc_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"gene"</span><span class="p">)</span>
+<span class="c1"># Read in processed expression matrix (cells x genes)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">proc_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"cell_id"</span><span class="p">)</span>
 
 <span class="c1"># Read in gene signatures to score cells by</span>
 <span class="c1"># there are 2 adipocyte signatures: "adipomap.Ad" and "yi.AD"</span>
@@ -7663,7 +7663,7 @@ lipogenic / other) and proportions. Methodology used for
 <span class="c1"># A signature is kept if at least 10 genes and 50% of the signature exist in {proc_matrix}</span>
 <span class="c1"># {frac_genes_retained} and {n_genes_retained}</span>
 <span class="n">sigs_filt</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">genes</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">genes</span> <span class="ow">in</span> <span class="n">sigs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-             <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">index</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n_genes_retained</span><span class="p">}</span>
+             <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n_genes_retained</span><span class="p">}</span>
 
 <span class="c1"># Calculate single-cell expression scores for each signature and FDRs</span>
 <span class="n">scores_permuted</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">sig_scores</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">sigs_filt</span><span class="p">,</span> <span class="n">permute</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">conserved_genes</span><span class="o">=</span><span class="n">frac_genes_retained</span><span class="p">)</span>
@@ -7676,7 +7676,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=532ef10f">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=b95990d9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7686,7 +7686,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6dddb024">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=cb564a14">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7753,7 +7753,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f615dd1d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9cab0575">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7763,7 +7763,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=ba33402a">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7c1ec1a3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7776,18 +7776,18 @@ lipogenic / other) and proportions. Methodology used for
 <span class="n">proc_matrix</span> <span class="o">=</span> <span class="s2">"data/m.adipo.logcpm.parquet"</span>
 <span class="n">gene_cutoff</span> <span class="o">=</span> <span class="mi">3</span>
 
-<span class="c1"># read expression matrix and cells classified as Adipo</span>
+<span class="c1"># read expression matrix (cells x genes) and cells classified as Adipo</span>
 <span class="n">cells</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">adipo_cells_path</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">full_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"gene"</span><span class="p">)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">full_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"cell_id"</span><span class="p">)</span>
 
 <span class="c1"># filter to keep only Adipo cells</span>
-<span class="n">m_adipo</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">cells</span><span class="p">]</span>
+<span class="n">m_adipo</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cells</span><span class="p">]</span>
 
 <span class="c1"># calculate average gene expression</span>
 <span class="n">avg</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">aggr_gene_expr</span><span class="p">(</span><span class="n">m_adipo</span><span class="p">,</span> <span class="n">is_bulk</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># filter genes that do not pass minimum gene expression cutoff</span>
-<span class="n">m2</span> <span class="o">=</span> <span class="n">m_adipo</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">avg</span> <span class="o">&gt;=</span> <span class="n">gene_cutoff</span><span class="p">]</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">m_adipo</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">avg</span> <span class="o">&gt;=</span> <span class="n">gene_cutoff</span><span class="p">]</span>
 
 <span class="c1"># save filtered matrix</span>
 <span class="n">m2</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">to_parquet</span><span class="p">(</span><span class="n">proc_matrix</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -7797,7 +7797,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cb09ae03">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=105e90fa">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7807,7 +7807,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=d4cef413">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=eb366916">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7821,8 +7821,8 @@ lipogenic / other) and proportions. Methodology used for
 <span class="n">n_genes_retained</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">score_results</span> <span class="o">=</span> <span class="s2">"data/permuted_scores.lipogenic_sigs.parquet"</span>
 
-<span class="c1"># Read in processed expression matrix</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">proc_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"gene"</span><span class="p">)</span>
+<span class="c1"># Read in processed expression matrix (cells x genes)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">proc_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"cell_id"</span><span class="p">)</span>
 
 <span class="c1"># Read in gene signatures to score cells by</span>
 <span class="c1"># These are a collection of lipogenic signatures</span>
@@ -7832,7 +7832,7 @@ lipogenic / other) and proportions. Methodology used for
 <span class="c1"># A signature is kept if at least 10 genes and 50% of the signature exist in {proc_matrix}</span>
 <span class="c1"># {frac_genes_retained} and {n_genes_retained}</span>
 <span class="n">sigs_filt</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">genes</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">genes</span> <span class="ow">in</span> <span class="n">sigs</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-             <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">index</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n_genes_retained</span><span class="p">}</span>
+             <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">genes</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n_genes_retained</span><span class="p">}</span>
 
 <span class="c1"># Calculate single-cell expression scores for each signature and FDRs</span>
 <span class="n">scores_permuted</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">sig_scores</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">sigs_filt</span><span class="p">,</span> <span class="n">permute</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">conserved_genes</span><span class="o">=</span><span class="n">frac_genes_retained</span><span class="p">)</span>
@@ -7845,7 +7845,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6c019e42">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7ff0641d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7855,7 +7855,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=a6c60360">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=45825f90">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7893,7 +7893,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6b0ad3ba">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8b77f952">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7903,7 +7903,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f7e14ecd">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8a180c0e">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7944,13 +7944,13 @@ lipogenic / other) and proportions. Methodology used for
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>{'adipo': 0.291, 'preadipo': 0.396, 'other': 0.313, 'lipogenic': 0.084}</pre>
+<pre>{'adipo': 0.291, 'preadipo': 0.396, 'other': 0.313, 'lipogenic': 0.083}</pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=39a2abe2">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e432d386">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7966,7 +7966,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cae61a0e">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0f3ae5b8">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7994,7 +7994,7 @@ yi.Thermogenesis_Village
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=f8389014">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=e99ca4ec">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8007,14 +8007,14 @@ yi.Thermogenesis_Village
 <span class="n">n_genes_retained</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">score_results</span> <span class="o">=</span> <span class="s2">"data/permuted_scores.thermo_sigs.parquet"</span>
 
-<span class="c1"># Read in processed adipocyte expression matrix</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">proc_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"gene"</span><span class="p">)</span>
+<span class="c1"># Read in processed adipocyte expression matrix (cells x genes)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">proc_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"cell_id"</span><span class="p">)</span>
 
 <span class="c1"># Read in the 12 thermogenic gene signatures</span>
 <span class="n">sigs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">gene_sigs</span><span class="p">)</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">"name"</span><span class="p">)[</span><span class="s2">"genes"</span><span class="p">]</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()</span>
 
 <span class="c1"># Trim each signature to genes present in the matrix</span>
-<span class="n">sigs_present</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">genes</span> <span class="k">if</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">genes</span> <span class="ow">in</span> <span class="n">sigs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+<span class="n">sigs_present</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">genes</span> <span class="k">if</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">genes</span> <span class="ow">in</span> <span class="n">sigs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
 
 <span class="c1"># Keep only sigs with at least {n_genes_retained} of their genes in the matrix</span>
 <span class="n">sigs_to_score</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="n">genes</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">genes</span> <span class="ow">in</span> <span class="n">sigs_present</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">genes</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">n_genes_retained</span><span class="p">}</span>
@@ -8034,7 +8034,7 @@ yi.Thermogenesis_Village
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=103c68e3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1894afb0">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8050,7 +8050,7 @@ and <code>rank</code>).</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=f7424c04">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=08179b9d">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8097,7 +8097,7 @@ and <code>rank</code>).</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=15aa02cf">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=13b464b3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
