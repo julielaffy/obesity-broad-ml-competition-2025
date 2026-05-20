@@ -868,21 +868,18 @@ yi.Thermogenesis_Village</code></pre>
 <span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a><span class="fu">write.csv</span>(perturb_wide, perturbation_out, <span class="at">row.names =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><em>Below: results from running the pipeline on the <strong>TF150</strong> dataset.</em></p>
-<p><strong><code>ThermoScores_cell.csv</code></strong> — first 3 of 30,975 rows, showing 2 of the 12 raw + 12 z-scored signature columns:</p>
+<p><strong><code>ThermoScores_cell.csv</code></strong> — 3 sampled rows of 30,975, showing 2 of the 12 raw + 12 z-scored signature columns:</p>
 <pre><code>                    cell_id  gene  emont.hAd6  z_emont.hAd6
-TRIM5_P1_AAACCATTCGCGACAT-1 TRIM5      0.6472        1.9737
-CREB1_P1_AAACCCTGTAGTAGGC-1 CREB1      0.1894        0.5775
-TRRAP_P1_AAACGAATCAATTGGT-1 TRRAP      0.0647        0.1972</code></pre>
-<p><strong><code>ThermoScores_perturbation.csv</code></strong> — top 8 of 158 perturbations ranked by <code>agg_top3_z</code>, showing the first 2 of the 12 signature columns:</p>
+PPARG_P2_TAACCTAGTGATGAGC-1 PPARG      0.0969        0.3058
+ NFIB_P1_TATCCATCAAGTGGTT-1  NFIB     -0.4047       -1.2769
+   NC_P5_CCATCGCTCTGTCATC-1    NC     -0.0095       -0.0300</code></pre>
+<p><strong><code>ThermoScores_perturbation.csv</code></strong> — top 5 of 158 perturbations ranked by <code>agg_top3_z</code>, showing the first 2 of the 12 signature columns:</p>
 <pre><code>    gene  emont.hAd6  lit.thermogenic  agg_top3_z  rank
 RNASEH2C      0.5796           0.1700      0.5484     1
  FAM136A      0.1190           0.4887      0.4885     2
  TMEM107     -0.2030           0.3624      0.4199     3
    EP400      0.2438           0.3996      0.3956     4
-   TRIM5      0.1003           0.1147      0.3177     5
-   CEBPG      0.0505           0.0977      0.2926     6
-   MEF2A     -0.0477           0.2802      0.2907     7
-    RBAK      0.1003           0.3238      0.2900     8</code></pre>
+   TRIM5      0.1003           0.1147      0.3177     5</code></pre>
 </div>
 </div>
 
