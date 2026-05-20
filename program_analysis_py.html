@@ -7510,7 +7510,7 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1f7d8b59">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a1fef597">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7555,7 +7555,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d04884a8">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=b2cd467c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7581,14 +7581,6 @@ lipogenic / other) and proportions. Methodology used for
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre><span class="ansi-red-fg">ERROR: Could not find a version that satisfies the requirement pyscalop&gt;=0.2.0 (from versions: 0.1.0, 0.1.1)</span><span class="ansi-red-fg">
-</span><span class="ansi-red-fg">ERROR: No matching distribution found for pyscalop&gt;=0.2.0</span><span class="ansi-red-fg">
-</span></pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
 <pre>Note: you may need to restart the kernel to use updated packages.
 </pre>
 </div>
@@ -7596,7 +7588,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=96012fec">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ba579261">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7606,7 +7598,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=6e108034">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3c593603">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7621,7 +7613,7 @@ lipogenic / other) and proportions. Methodology used for
 <span class="c1"># read in expression matrix (gene x cell, log2(CPM/10 + 1))</span>
 <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_parquet</span><span class="p">(</span><span class="n">full_matrix</span><span class="p">)</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"gene"</span><span class="p">)</span>
 
-<span class="c1"># calculate average gene expression (scalop::aggr_gene_expr equivalent)</span>
+<span class="c1"># calculate average gene expression</span>
 <span class="n">avg</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">aggr_gene_expr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">is_bulk</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># filter genes that do not pass minimum gene expression cutoff</span>
@@ -7635,7 +7627,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=dd26aa57">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=24602fa3">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7645,7 +7637,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=81325514">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=4874ada9">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7684,7 +7676,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=27566e77">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f10926c2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7694,7 +7686,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=e240eb7e">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=aa57b582">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7765,7 +7757,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=cab90b57">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=221c0298">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7775,7 +7767,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=f763d115">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2823a61a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7797,7 +7789,7 @@ lipogenic / other) and proportions. Methodology used for
 <span class="c1"># filter to keep only Adipo cells</span>
 <span class="n">m_adipo</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">cells</span><span class="p">]</span>
 
-<span class="c1"># calculate average gene expression (scalop::aggr_gene_expr equivalent)</span>
+<span class="c1"># calculate average gene expression</span>
 <span class="n">avg</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">aggr_gene_expr</span><span class="p">(</span><span class="n">m_adipo</span><span class="p">,</span> <span class="n">is_bulk</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># filter genes that do not pass minimum gene expression cutoff</span>
@@ -7811,7 +7803,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ac32ef94">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2ed19c57">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7821,7 +7813,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=2c60a37b">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=7462bb30">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7859,7 +7851,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a48019d3">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4bdf5705">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7869,7 +7861,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=eecdcd86">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=3f84fef1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7914,7 +7906,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1eb62007">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c1bc9282">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7924,7 +7916,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=51cdad90">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=563b2628">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7965,13 +7957,13 @@ lipogenic / other) and proportions. Methodology used for
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain" tabindex="0">
-<pre>{'adipo': 0.291, 'preadipo': 0.395, 'other': 0.314, 'lipogenic': 0.085}</pre>
+<pre>{'adipo': 0.291, 'preadipo': 0.397, 'other': 0.312, 'lipogenic': 0.084}</pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=6e3312df">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=f811ca42">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7987,7 +7979,7 @@ lipogenic / other) and proportions. Methodology used for
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=2f09a24d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=9b282787">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8015,7 +8007,7 @@ yi.Thermogenesis_Village
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=0354bcc6">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=1e2d3de1">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8055,7 +8047,7 @@ yi.Thermogenesis_Village
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ba9f30bb">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=e0cbe760">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8071,7 +8063,7 @@ and <code>rank</code>).</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=05766fbd">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=969b9217">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8122,7 +8114,7 @@ and <code>rank</code>).</p>
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a89197c0">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3eeea0e4">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
